@@ -4,7 +4,10 @@ import Line from '@/components/Line';
 import Sector from '@/components/Sector';
 import animation from '@/utils/animation'
 import Stage from '@/stage.js';
-const graphifyChart = {
+export const runApp = () => {
+  console.log('App started');
+};
+export  {
   Rect,
   Circle,
   Line,
@@ -12,4 +15,3 @@ const graphifyChart = {
   animation,
   Stage
 }
-export default graphifyChart
