@@ -11,7 +11,7 @@ import Stage from '@/stage.js';
 
 // const rect1 = new Rect(stage, { x: 10, y: 10, width: 100, height: 100, bgColor: 'red', borderColor: 'green', borderWidth: 6, radius: 20, zIndex: 0 })
 // stage.appendChild(rect1)
-console.log(111)
+console.log(1)
 export {
   Rect,
   Circle,

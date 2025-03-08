@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-
+import react from '@vitejs/plugin-react'
 export default defineConfig({
-  // 基础路径
-  root: './src',
   base:'./',
   // 开发服务器配置
   server: {
@@ -27,11 +25,6 @@ export default defineConfig({
     sourcemap: true,          // 生成sourcemap
 
   },
-  optimizeDeps: {
-    esbuildOptions: {
-      target: 'esnext' // 同步esbuild配置
-    }
-  },
 
   // 解析配置
   resolve: {
@@ -40,19 +33,4 @@ export default defineConfig({
     },
     extensions: ['.js', '.json']          // 文件扩展名
   },
-
-  // CSS 配置
-  // css: {
-  //   postcss: {
-  //     plugins: [require('autoprefixer')]  // 自动前缀
-  //   },
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `@import "@/styles/vars.scss";` // 全局SCSS变量
-  //     }
-  //   }
-  // },
-
-  // 插件配置
-  plugins: []  // 可扩展插
 });
