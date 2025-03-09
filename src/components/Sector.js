@@ -1,4 +1,4 @@
-import defaultAttr from '@/utils/defaultAttr'
+import {defaultSector} from '@/utils/defaultAttr'
 class Sector {
   constructor(stage, config) {
     this.stage = stage
@@ -8,8 +8,8 @@ class Sector {
      * { x:200, y:200, bgColor:'red', startAngle:0, endAngle:Math.PI * 1.5, borderColor:'green', borderWidth:3, radius:60,zIndex:1}
      */
     this.type = 'sector';
-    for(let key in config) {
-      this[key] = config[key] || defaultAttr[key];
+    for(let key in defaultSector) {
+      this[key] = config[key] || defaultSector[key];
     }
     this.children = [];
     this.listener = {};//事件监听

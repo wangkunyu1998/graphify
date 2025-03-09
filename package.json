@@ -1,8 +1,8 @@
 {
   "name": "graphify-chart",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "description": "",
-  "main": "index.html",
+  "main": "dist/graphifyChart.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

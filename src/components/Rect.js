@@ -1,4 +1,4 @@
-import defaultAttr from '@/utils/defaultAttr'
+import {defaultRect} from '@/utils/defaultAttr'
 class Rect {
   constructor(stage, config) {
     this.ctx = stage.getCtx();;
@@ -9,8 +9,8 @@ class Rect {
      */
     this.type= 'rect'
     
-    for(let key in config) {
-      this[key] = config[key] || defaultAttr[key];
+    for(let key in defaultRect) {
+      this[key] = config[key] || defaultRect[key];
     }
     this.children = [];
     this.listener = {};//事件监听池

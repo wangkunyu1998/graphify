@@ -1,4 +1,4 @@
-import defaultAttr from '@/utils/defaultAttr'
+import {defaultCircle} from '@/utils/defaultAttr'
 class Circle {
   constructor(stage, config) {
     this.ctx = stage.getCtx();
@@ -8,8 +8,8 @@ class Circle {
      * x:200, y:200, radius:50, startAngle:0, endAngle:Math.PI * 2, bgColor:'blue', borderColor :'yellow', borderWidth :5, zIndex :1
      */
     this.type = 'circle'
-    for(let key in config) {
-      this[key] = config[key] || defaultAttr[key];
+    for(let key in defaultCircle) {
+      this[key] = config[key] || defaultCircle[key];
     }
     this.children = [];
     this.listener = {};//事件监听

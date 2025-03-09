@@ -1,38 +1,37 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 export default defineConfig({
-  base:'./',
+  // base:'./',
   // 开发服务器配置
   server: {
     port: 3000,                // 自定义端口
     open: true,                // 自动打开浏览器
-    hmr: {
-      overlay: true           // 显示错误覆盖层
-    },
   },
 
-  // 构建配置
   build: {
-    outDir: 'dist',           // 输出目录
-    target: 'esnext',         // 使用最新ES特性
-    // sourcemap: true,          // 生成sourcemap
-    rollupOptions: {
-      external: [],
-      input: {
-        // 入口文件路径（例如打包 src/utils/my-script.js）
-        index: resolve(__dirname, 'src/index.js'),
-      },
-      output: {
-        // 输出文件名格式（[name] 会替换为入口的 key，此处为 "main"）
-        entryFileNames: '[name].min.js',
-        // 压缩配置（默认生产环境会自动启用）
-        compact: true
-      }
+    // 库模式配置
+    lib: {
+      entry: resolve(__dirname, 'src/index.js'),
+      name: 'MyLib',          // UMD 全局变量名
+      formats: ['cjs'], // 输出格式
+      fileName: (format) => `graphifyChart.js`
     },
-    // 启用代码压缩（默认为 true，生产环境自动启用）
-    // minify: 'terser',
+    // 压缩配置
+    minify: 'terser',
+    // 输出目录
+    outDir: 'dist',
+    // 不生成空 CSS 文件
+    cssCodeSplit: false,
+    // Rollup 配置
+    rollupOptions: {
+      // 外部化第三方依赖（如 lodash）
+      external: [],
+      output: {
+        // UMD 全局变量
+        globals: {}
+      }
+    }
   },
-
   // 解析配置
   resolve: {
     alias: {

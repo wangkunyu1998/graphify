@@ -7,11 +7,11 @@ import CanvasEvent from '@/utils/canvasEvent'
 import QuadTree from '@/utils/quadTree'
 
 class Stage {
-  constructor(root) {
+  constructor(root,width = 200,height = 200) {
     this.container = root
     const canvas = document.createElement("canvas");
-    canvas.width = this.container.clientWidth
-    canvas.height = this.container.clientHeight
+    canvas.width = this?.container?.clientWidth  || width 
+    canvas.height = this.container.clientHeight ||height
   
     const ctx = canvas.getContext("2d");
     this.container.appendChild(canvas);
