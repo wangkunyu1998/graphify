@@ -5,11 +5,11 @@ class Sector {
     this.ctx = stage.getCtx();
       /**
      * 基础属性
-     * { x:200, y:200, bgColor:'red', startAngle:0, endAngle:Math.PI * 1.5, borderColor:'green', borderWidth:3, radius:60,zIndex:1}
+     * { x:200, y:200, fillStyle:'blue', startAngle:0, endAngle:Math.PI * 1.5, borderColor:'green', borderWidth:3, radius:60,zIndex:1}
      */
     this.type = 'sector';
     for(let key in defaultSector) {
-      this[key] = config[key] || defaultSector[key];
+      this[key] = config?.[key] || defaultSector[key];
     }
     this.children = [];
     this.listener = {};//事件监听
@@ -71,6 +71,7 @@ class Sector {
     }
   }
   render() {
+    const ctx = this.ctx
     ctx.save();
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle);
@@ -78,7 +79,7 @@ class Sector {
     ctx.closePath();
     
     // 填充
-    ctx.fillStyle = this.bgColor;
+    ctx.fillStyle = this.fillStyle;
     ctx.fill();
     
     // 描边

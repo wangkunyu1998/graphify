@@ -9,7 +9,7 @@ class Circle {
      */
     this.type = 'circle'
     for(let key in defaultCircle) {
-      this[key] = config[key] || defaultCircle[key];
+      this[key] = config?.[key] || defaultCircle[key];
     }
     this.children = [];
     this.listener = {};//事件监听

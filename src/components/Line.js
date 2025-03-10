@@ -1,5 +1,5 @@
 class Line {
-  constructor(stage,config) {
+  constructor(stage,config ={}) {
     this.stage = stage;
     this.ctx = stage.getCtx();
     this.type= 'line'
@@ -11,12 +11,12 @@ class Line {
     this.y2 = config.y2 || 100;
     
     // 贝塞尔曲线控制点
-    this.controlX1 = config.control1.x;  // 二次/三次曲线控制点1
-    this.controlY1 = config.control1.y;
-    this.controlX2 = config.control2.x;  // 三次曲线控制点2
-    this.controlY2 = config.control2.y;
+    this.controlX1 = config.control1?.x;  // 二次/三次曲线控制点1
+    this.controlY1 = config.control1?.y;
+    this.controlX2 = config.control2?.x;  // 三次曲线控制点2
+    this.controlY2 = config.control2?.y;
     // 样式属性
-    this.borderColor = config.borderColor;
+    this.borderColor = config.borderColor || 'red';
     this.lineWidth = config.lineWidth;
     this.lineCap = config.lineCap ; //两端样式
     this.children = [];
@@ -92,6 +92,7 @@ class Line {
     ctx.stroke();
     ctx.closePath();
     ctx.restore();
+    console.log(ctx)
     // 绘制控制点和连接线
     if(this.showControlPoints) {
       this.drawControlPoints(ctx);
@@ -110,7 +111,7 @@ class Line {
     const controlPoints = [[this.x1,this.y1],[this.x2,this.y2]];
   
     const points =controlPoints.map(point => {
-    return  new Circle(this.stage, { x: point[0], y: point[1], radius: this.controlPointRadius, startAngle: 0, endAngle: Math.PI * 2, bgColor:this.controlPointColor,zIndex: 2 })
+    return  new Circle(this.stage, { x: point[0], y: point[1], radius: this.controlPointRadius, startAngle: 0, endAngle: Math.PI * 2, fillStyle:this.controlPointColor,zIndex: 2 })
     });
     this.appendChild(...points)
   }

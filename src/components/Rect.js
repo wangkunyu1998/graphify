@@ -5,12 +5,12 @@ class Rect {
     this.stage = stage;
     /**
      * 基础属性
-     * {x : 10, y : 10, width :100, height :100, bgColor:'red', borderColor :'green', borderWidth :6, radius : 20, zIndex :0}
+     * {x : 10, y : 10, width :100, height :100, fillStyle:'red', borderColor :'green', borderWidth :6, radius : 20, zIndex :0}
      */
     this.type= 'rect'
     
     for(let key in defaultRect) {
-      this[key] = config[key] || defaultRect[key];
+      this[key] = config?.[key] || defaultRect[key];
     }
     this.children = [];
     this.listener = {};//事件监听池
@@ -46,10 +46,10 @@ class Rect {
     }
   }
   render() {
-    const { x, y, width, height, bgColor, borderColor, borderWidth, radius } = this;
+    const { x, y, width, height, fillStyle, borderColor, borderWidth, radius } = this;
     const ctx = this.ctx
     ctx.save();
-    ctx.fillStyle = bgColor;
+    ctx.fillStyle = fillStyle;
     ctx.lineWidth = borderWidth;
     ctx.strokeStyle = borderColor
   

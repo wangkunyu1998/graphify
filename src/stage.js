@@ -8,13 +8,15 @@ import QuadTree from '@/utils/quadTree'
 
 class Stage {
   constructor(root,width = 200,height = 200) {
-    this.container = root
+    this.container = root || document.createElement("div")
+    document.querySelector('body').appendChild(this.container)
     const canvas = document.createElement("canvas");
     canvas.width = this?.container?.clientWidth  || width 
-    canvas.height = this.container.clientHeight ||height
+    canvas.height = this?.container?.clientHeight ||height
   
     const ctx = canvas.getContext("2d");
     this.container.appendChild(canvas);
+  
     this.children = [];
     this.ctx = ctx;
     this.quadTree = new QuadTree({
@@ -91,7 +93,7 @@ class Stage {
     }
     this.isRendering = true;
     requestAnimationFrame(() => {
-      this.ctx.clearRect(0, 0, this.container.clientWidth, this.container.clientHeight)
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
       this.children.sort((a, b) => a.zIndex - b.zIndex).forEach((child) => {
         child.render()
       })
