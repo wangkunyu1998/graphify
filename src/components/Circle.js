@@ -1,7 +1,7 @@
 import {defaultCircle} from '@/utils/defaultAttr'
 import Drag from '@/utils/drag.js'
 class Circle extends Drag {
-  constructor(stage, config) {
+  constructor(stage, config ={}) {
     super(stage,config)
     this.ctx = stage.getCtx();
     this.stage = stage

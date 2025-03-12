@@ -14,7 +14,7 @@ class Drag{
   }
   const onMousemove = (e) => {
     if(this.draging){
-      this?.setAttr({ x: e.clientX - this.dragNodeMoveX, y: e.clientY - this.dragNodeMoveY });
+      this?.setAttr({ x: e.offsetX - this.dragNodeMoveX, y: e.offsetY - this.dragNodeMoveY });
     }
    
   }

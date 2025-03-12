@@ -1,7 +1,7 @@
 import {defaultRect} from '@/utils/defaultAttr'
 import Drag from '@/utils/drag.js'
 class Rect extends Drag {
-  constructor(stage, config) {
+  constructor(stage, config ={}) {
     super(stage,config)
     this.ctx = stage.getCtx();;
     this.stage = stage;
@@ -27,28 +27,6 @@ class Rect extends Drag {
         x >= this.x && x<this.x + this.width &&y>=this.y && y<this.y + this.height
       )
   }
-  // drag(){
-  //   this.addEventListener('mousedown', (e) => {
-  //     if (e.target) {
-  //       this.draging = true;
-  //       this.stage.draging = true
-  //       this.dragNodeMoveX = e.x - this.x;
-  //       this.dragNodeMoveY = e.y - this.y;
-  //     }
-  //   });
-  //   const onMouseup = (e) => {
-  //     this.stage.draging = false;
-  //     this.draging = false;
-  //   }
-  //   const onMousemove = (e) => {
-  //     if(this.draging){
-  //       this?.setAttr({ x: e.clientX - this.dragNodeMoveX, y: e.clientY - this.dragNodeMoveY });
-  //     }
-     
-  //   }
-  //   this.stage.container.addEventListener('mousemove', onMousemove)
-  //   this.stage.container.addEventListener('mouseup', onMouseup)
-  // }
   setAttr(attr) {
     Object.keys(attr).forEach((key) => this[key] = attr[key] );
     this.stage.render()

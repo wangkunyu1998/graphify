@@ -1,7 +1,7 @@
 import {defaultRect} from '@/utils/defaultAttr'
 import Drag from '@/utils/drag.js'
 class Group extends Drag {
-  constructor(stage,config) {
+  constructor(stage,config ={}) {
     super(stage,config)
     this.ctx = stage.getCtx();;
     this.stage = stage;
@@ -27,7 +27,8 @@ class Group extends Drag {
   }
   setAttr(attr) {
     const {x =0,y =0} = attr;
-    Object.keys(attr).forEach((key) => this[key] = attr[key] );
+    this.x = x;
+    this.y = y
     this.children.forEach((child,index) => {
       const attrCache = {
         ...attr,
@@ -51,6 +52,14 @@ class Group extends Drag {
 
   getBox(){
     return true
+  }
+  addEventListener(type,callback){
+    //如果没监听过这个事件，则初始化
+    if(!this.listener[type]){
+      this.listener[type] = []
+    }
+    // 放进当前监听事件回调
+    this.listener[type].push(callback)
   }
   render() {
     

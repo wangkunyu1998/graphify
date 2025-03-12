@@ -1,7 +1,7 @@
 import {defaultSector} from '@/utils/defaultAttr'
 import Drag from '@/utils/drag.js'
 class Sector extends  Drag{
-  constructor(stage, config) {
+  constructor(stage, config ={}) {
     super(stage,config)
     this.stage = stage
     this.ctx = stage.getCtx();
