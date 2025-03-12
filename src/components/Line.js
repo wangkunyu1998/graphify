@@ -4,7 +4,7 @@ class Line {
     this.ctx = stage.getCtx();
     this.type= 'line'
     // 基础属性
-    this.lineType =config.lineType || 'line'; // 线段类型：line/quadratic/cubic
+    this.lineType = config.lineType || 'line'; // 线段类型：line/quadratic/cubic
     this.x1 = config.x1 || 0;
     this.y1 = config.y1 || 0;
     this.x2 = config.x2 || 100;
@@ -34,14 +34,6 @@ class Line {
   setAttr(attr) {
     Object.keys(attr).forEach((key) => this[key] = attr[key] );
     this.stage.render()
-  }
-  appendChild(...childs) {
-    if(childs.length > 0){
-      childs.forEach((child) => {
-        this.children.push(child);
-      })
-      this.stage.render()
-    }
   }
   addEventListener(type,callback){
     //如果没监听过这个事件，则初始化
@@ -92,16 +84,9 @@ class Line {
     ctx.stroke();
     ctx.closePath();
     ctx.restore();
-    console.log(ctx)
     // 绘制控制点和连接线
     if(this.showControlPoints) {
       this.drawControlPoints(ctx);
-    }
-    
-    if( this.children.length > 0 ) {
-      this.children.sort((a, b) => a.zIndex - b.zIndex).forEach((child) => {
-        child.render()
-      })
     }
    
    

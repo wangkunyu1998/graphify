@@ -1,11 +1,13 @@
 import {defaultCircle} from '@/utils/defaultAttr'
-class Circle {
+import Drag from '@/utils/drag.js'
+class Circle extends Drag {
   constructor(stage, config) {
+    super(stage,config)
     this.ctx = stage.getCtx();
     this.stage = stage
     /**
      * 基础属性
-     * x:200, y:200, radius:50, startAngle:0, endAngle:Math.PI * 2, bgColor:'blue', borderColor :'yellow', borderWidth :5, zIndex :1
+     * x:200, y:200, radius:50, startAngle:0, endAngle:Math.PI * 2, fillStyle:'blue', borderColor :'yellow', borderWidth :5, zIndex :1
      */
     this.type = 'circle'
     for(let key in defaultCircle) {
@@ -13,6 +15,11 @@ class Circle {
     }
     this.children = [];
     this.listener = {};//事件监听
+    this.draging = false;
+    this.draggable = config.draggable;
+    if(this.draggable){
+      this.drag()
+    }
   }
   contains(pointX,pointY){
       // const boundingBox = {
@@ -68,14 +75,14 @@ class Circle {
     this.listener[type].push(callback)
   }
   render() {
-    const { x, y, radius, startAngle, endAngle, bgColor, borderColor, borderWidth } = this;
+    const { x, y, radius, startAngle, endAngle, fillStyle, borderColor, borderWidth } = this;
     const ctx = this.ctx
     ctx.save()
    
   
     ctx.beginPath(); // 开始一个新的路径
     ctx.arc(x, y, radius, startAngle, endAngle);
-    ctx.fillStyle = bgColor;
+    ctx.fillStyle = fillStyle;
     ctx.strokeStyle = borderColor || 'rgba(0,0,0,0)'; // 边框颜色
     ctx.lineWidth = borderWidth; // 边框宽度
     ctx.fill();

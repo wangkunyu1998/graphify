@@ -1,6 +1,6 @@
 {
   "name": "graphify-chart",
-  "version": "1.0.11",
+  "version": "1.0.14",
   "description": "",
   "main": "dist/graphifyChart.js",
   "scripts": {

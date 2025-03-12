@@ -1,6 +1,8 @@
 import {defaultRect} from '@/utils/defaultAttr'
-class Rect {
+import Drag from '@/utils/drag.js'
+class Rect extends Drag {
   constructor(stage, config) {
+    super(stage,config)
     this.ctx = stage.getCtx();;
     this.stage = stage;
     /**
@@ -8,29 +10,48 @@ class Rect {
      * {x : 10, y : 10, width :100, height :100, fillStyle:'red', borderColor :'green', borderWidth :6, radius : 20, zIndex :0}
      */
     this.type= 'rect'
-    
+   
     for(let key in defaultRect) {
       this[key] = config?.[key] || defaultRect[key];
     }
     this.children = [];
     this.listener = {};//事件监听池
+    this.draging = false;
+    this.draggable = config.draggable;
+    if(this.draggable){
+      this.drag()
+    }
   }
   contains(x,y){
     return (
         x >= this.x && x<this.x + this.width &&y>=this.y && y<this.y + this.height
       )
   }
+  // drag(){
+  //   this.addEventListener('mousedown', (e) => {
+  //     if (e.target) {
+  //       this.draging = true;
+  //       this.stage.draging = true
+  //       this.dragNodeMoveX = e.x - this.x;
+  //       this.dragNodeMoveY = e.y - this.y;
+  //     }
+  //   });
+  //   const onMouseup = (e) => {
+  //     this.stage.draging = false;
+  //     this.draging = false;
+  //   }
+  //   const onMousemove = (e) => {
+  //     if(this.draging){
+  //       this?.setAttr({ x: e.clientX - this.dragNodeMoveX, y: e.clientY - this.dragNodeMoveY });
+  //     }
+     
+  //   }
+  //   this.stage.container.addEventListener('mousemove', onMousemove)
+  //   this.stage.container.addEventListener('mouseup', onMouseup)
+  // }
   setAttr(attr) {
     Object.keys(attr).forEach((key) => this[key] = attr[key] );
     this.stage.render()
-  }
-  appendChild(...childs) {
-    if(childs.length > 0){
-      childs.forEach((child) => {
-        this.children.push(child);
-      })
-      this.stage.render()
-    }
   }
   addEventListener(type,callback){
     //如果没监听过这个事件，则初始化
@@ -82,11 +103,6 @@ class Rect {
       ctx.strokeRect(x, y, width, height);
     }
     ctx.restore();
-    if(this.children.length > 0){
-      this.children.sort((a, b) => a.zIndex - b.zIndex).forEach((child) => {
-        child.render()
-      })
-    }
    
   }
 }

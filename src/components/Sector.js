@@ -1,6 +1,8 @@
 import {defaultSector} from '@/utils/defaultAttr'
-class Sector {
+import Drag from '@/utils/drag.js'
+class Sector extends  Drag{
   constructor(stage, config) {
+    super(stage,config)
     this.stage = stage
     this.ctx = stage.getCtx();
       /**
@@ -13,7 +15,11 @@ class Sector {
     }
     this.children = [];
     this.listener = {};//事件监听
-  
+    this.draging = false;
+    this.draggable = config.draggable;
+    if(this.draggable){
+      this.drag()
+    }
   }
   contains(x,y){
      // 计算点与圆心的相对坐标
@@ -48,14 +54,6 @@ class Sector {
   setAttr(attr) {
     Object.keys(attr).forEach((key) => this[key] = attr[key] );
     this.stage.render()
-  }
-  appendChild(...childs) {
-    if(childs.length > 0){
-      childs.forEach((child) => {
-        this.children.push(child);
-      })
-      this.stage.render()
-    }
   }
   addEventListener(type,callback){
     //如果没监听过这个事件，则初始化
