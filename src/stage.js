@@ -25,8 +25,9 @@ class Stage {
       height: ctx.canvas.height
     }, 0, this.ctx)
     // 支持那些事件
-    const eventTypes = ['click', 'mousedown', 'mouseup', 'mousemove']
-    eventTypes.forEach((eventType) => new CanvasEvent(this.ctx.canvas, this, eventType))
+    // const eventTypes = ['click','dblclick','mousedown','mouseup','mousemove','mouseenter','mouseleave' ]
+    const eventTypes = ['click']
+    eventTypes.forEach((eventType) => new CanvasEvent(canvas, this, eventType))
     this.isRendering = false; // 是否正在渲染
     this.index = 0;
     this.isQuadTreeUpdate = false;
@@ -45,11 +46,6 @@ class Stage {
       this.index = this.index + 1
       this.children.push(child);
     })
-    this.isQuadTreeUpdate = true;
-    this.render();
-  }
-  removeChild(index) {
-    this.children.splice(index, 1)
     this.isQuadTreeUpdate = true;
     this.render();
   }
@@ -94,7 +90,7 @@ class Stage {
     this.isRendering = true;
     requestAnimationFrame(() => {
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
-      this.children.sort((a, b) => a.zIndex - b.zIndex).forEach((child) => {
+      [...this.children].sort((a, b) => a.zIndex - b.zIndex).forEach((child) => {
         child.render()
       })
       if (this.isQuadTreeUpdate && !this.draging) {

@@ -4,7 +4,7 @@ export default defineConfig({
   // base:'./',
   // 开发服务器配置
   server: {
-    port: 3030,                // 自定义端口
+    port: 3031,                // 自定义端口
     open: true,                // 自动打开浏览器
   },
 
