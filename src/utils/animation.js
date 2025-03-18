@@ -29,7 +29,7 @@ const tween = {
 };
 let timer = null
 // 元素、动画时长、动画曲线、动画目标值{attr:'x',value:'500'}
-function animate(element, duration, easing = 'linear', target) {
+function animate(element, duration, target,easing = 'linear', ) {
   const stime = Date.now();
   cancelFrame(timer);
   ani()

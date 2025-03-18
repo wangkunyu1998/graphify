@@ -25,8 +25,8 @@ class Stage {
       height: ctx.canvas.height
     }, 0, this.ctx)
     // 支持那些事件
-    // const eventTypes = ['click','dblclick','mousedown','mouseup','mousemove','mouseenter','mouseleave' ]
-    const eventTypes = ['click']
+    const eventTypes = ['click','dblclick','mousedown','mouseup','mousemove','mouseenter','mouseleave' ]
+    // const eventTypes = ['click']
     eventTypes.forEach((eventType) => new CanvasEvent(canvas, this, eventType))
     this.isRendering = false; // 是否正在渲染
     this.index = 0;
@@ -36,18 +36,22 @@ class Stage {
     this.dragNodeMoveY = 0;
     this.render();
     this.draging = false;
+    this.pendingChildren = []; // 新增待处理队列
   };
   getCtx() {
     return this.ctx
   }
   appendChild(...childs) {
+  
     childs.forEach((child) => {
       child.index = this.index;
-      this.index = this.index + 1
+      this.index = this.index + 1;
       this.children.push(child);
     })
-    this.isQuadTreeUpdate = true;
+   
     this.render();
+    this.isQuadTreeUpdate = true;
+    
   }
   getChildren(filterFunc) {
     if (!filterFunc) {
@@ -89,15 +93,16 @@ class Stage {
     }
     this.isRendering = true;
     requestAnimationFrame(() => {
-      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
-      [...this.children].sort((a, b) => a.zIndex - b.zIndex).forEach((child) => {
+      console.log(this.children,this.children.length)
+      this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+      this.children.sort((a, b) => a.zIndex - b.zIndex).forEach((child) => {
         child.render()
       })
       if (this.isQuadTreeUpdate && !this.draging) {
         let level = 0;
         this.children.forEach((child) => {
           this.quadTree.insertNode(child)
-          if (child.children.length > 0) {
+          if (child.children?.length > 0) {
             child.level = level
             child.children.forEach((item) => {
               item.level = level + 1
@@ -107,8 +112,8 @@ class Stage {
         })
         this.isQuadTreeUpdate = false
       }
-      this.isRendering = false
-    })
+      this.isRendering = false;
+    },0)
   }
 }
 

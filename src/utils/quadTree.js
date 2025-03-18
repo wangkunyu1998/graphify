@@ -7,11 +7,13 @@ class QuadTree{
     this.maxCapacity = 10
     this.children = [];//划分的象限
     this.depth = depth;
-    this.ctx = ctx
+    this.ctx = ctx;
+    // 事件兼容图形
+    this.nodeType = ['circle','rect','group','sector']
   }
   insertNode(node){
     // 节点不在当前区域内
-    if(!this.intersects(node.getBox())){
+    if( !this.nodeType.includes(node.type) || !this.intersects(node?.getBox?.()) ){
       return false
     }
     node.depth = this.depth

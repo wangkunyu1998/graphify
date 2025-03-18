@@ -3,22 +3,64 @@ import Circle from '@/components/Circle';
 import Line from '@/components/Line';
 import Sector from '@/components/Sector';
 import Group from '@/components/Group';
+import LineChart from '@/components/LineChart'
+import PieChart from '@/components/PieChart'
+import BarChart from '@/components/BarChart'
 import animation from '@/utils/animation'
 import Stage from '@/stage.js';
 
 if(import.meta.env.DEV){
   const root = document.getElementById('app')
   const stage = new Stage(root,700,300);
-  const rect = new Rect(stage,{x:0,y:0,zIndex:2});
-  const circle = new Circle(stage,{x:100,y:100,fillStyle:'green',zIndex:1});
-  circle.addEventListener('click',() => {
-    console.log('click')
-    circle.setAttr({zIndex:circle.zIndex === 1 ? 3 : 1})
-  } )
-  rect.addEventListener('click',() =>console.log('rect'))
-  stage.appendChild(rect,circle)
+  // const options = {
+  //   margin: 60,
+  //   smooth:false,
+  //   xAxis: {
+  //     data: ['a', 'b', 'c', 'd', 'e', 'f']
+  //   },
+  //   series: [
+      
+  //     {
+  //       data: [120, 1332, 201, 1934, 2800, 3001]
+  //     }
+  //   ]
+  // }
+  // const chart = new LineChart(
+  //   stage,
+  //   options,
+  // );
+  const options= {
+      radius:100,
+      innerRadius: 70,
+      colors: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de'],
+      data:  [
+        { label: '食品', value: 4200 },
+        { label: '住房', value: 3100 },
+        { label: '交通', value: 2400 },
+        { label: '娱乐', value: 1500 },
+        { label: '其他', value: 800 }
+      ]
+  }
+   new PieChart(stage,options )
+  // const data = [
+  //   { label: '1月', value: 65 },
+  //   { label: '2月', value: 80 },
+  //   { label: '3月', value: 45 },
+  //   { label: '4月', value: 95 },
+  //   { label: '5月', value: 70 }
+  // ]
+  // const barChart = new BarChart(
+  //   stage,
+  //   {
+  //     barColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD'],
+  //     margin: 60,
+  //     animationDuration: 1500,
+  //     data,
+  //     // barWidth:10
+  //   }
+  // )
+  // stage.appendChild(chart)
 }
-
 
 export  {
   Rect,
