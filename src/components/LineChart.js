@@ -28,7 +28,7 @@ class LineChart {
 
   // 计算Y轴最大值和步长
   calculateYAxis() {
-    const maxValue = Math.max(...this.options.series[0].data.map(d => d));
+    const maxValue = Math.max(...this.options.data.map(d => d.value));
     this.yMax = Math.ceil(maxValue / 10) * 10;
     this.yStep = this.yMax / 5;
   }
@@ -70,10 +70,10 @@ class LineChart {
     // X轴标签
     ctx.textAlign = 'center';
     ctx.textBaseline = 'top';
-    options.xAxis.data.forEach((d, i) => {
-      const x = options.margin + (i * this.chartWidth / (options.xAxis.data.length - 1));
+    options.data.forEach((d, i) => {
+      const x = options.margin + (i * this.chartWidth / (options.data.length - 1));
       ctx.fillText(
-        d,
+        d.label,
         x,
         this.height - options.margin + 10
       );
@@ -90,9 +90,9 @@ class LineChart {
     ctx.strokeStyle = options.lineColor;
     ctx.lineWidth = 2;
     ctx.moveTo(0, 0);
-    const points =options.xAxis.data.map((d, i) => ({
-      x: options.margin + (i * this.chartWidth/(options.xAxis.data.length-1)),
-      y: this.height - options.margin - (options.series[0].data[i] * this.chartHeight/this.yMax)
+    const points =options.data.map((d, i) => ({
+      x: options.margin + (i * this.chartWidth/(options.data.length-1)),
+      y: this.height - options.margin - (d.value * this.chartHeight/this.yMax)
     }));
     if(options.smooth) {
       // 平滑曲线绘制逻辑
@@ -168,19 +168,19 @@ class LineChart {
     this.drawLine();
     const tooltipDom = document.getElementById('graphify-tooltip')
     let tooltip = ``
-    this.options.xAxis.data.some((d, i) => {
-      const x = this.options.margin + (i * this.chartWidth / (this.options.xAxis.data.length - 1));
-      const y = this.height - this.options.margin - (this.options.series[0].data[i] * this.chartHeight / this.yMax);
+    this.options.data.some((d, i) => {
+      const x = this.options.margin + (i * this.chartWidth / (this.options.data.length - 1));
+      const y = this.height - this.options.margin - (d.value * this.chartHeight / this.yMax);
      
       // display: none;
        
       // 检测鼠标附近的数据点
       if (Math.abs(mouseX - x) < 10 && Math.abs(mouseY - y) < 10) {
-        tooltip = `<div  style=" height:50px; position: absolute; left: ${x + 10}px; top: ${y + 10}px; background-color: rgb(255, 255, 255);  box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; padding: 10px; width: 200px; pointer-events: none;  border-radius: 8px; flex-direction: column; gap: 10px;"><div style="font-size: 16px;">${d}</div>
+        tooltip = `<div  style=" height:50px; position: absolute; left: ${x + 10}px; top: ${y + 10}px; background-color: rgb(255, 255, 255);  box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; padding: 10px; width: 200px; pointer-events: none;  border-radius: 8px; flex-direction: column; gap: 10px;"><div style="font-size: 16px;">${d.label}</div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <div style="margin-top:5px;width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background-color: #0052D9;"></div> 
             <div></div>
-            <div style="margin-left: auto; ">${this.options.series[0].data[i]}</div>
+            <div style="margin-left: auto; ">${d.value}</div>
           </div>
           </div>`
         tooltipDom.style.display = 'block'

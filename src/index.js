@@ -15,33 +15,31 @@ if(import.meta.env.DEV){
   // const options = {
   //   margin: 60,
   //   smooth:false,
-  //   xAxis: {
-  //     data: ['a', 'b', 'c', 'd', 'e', 'f']
-  //   },
-  //   series: [
-      
-  //     {
-  //       data: [120, 1332, 201, 1934, 2800, 3001]
-  //     }
-  //   ]
+  //     data:  [
+  //       { label: '食品', value: 4200 },
+  //       { label: '住房', value: 3100 },
+  //       { label: '交通', value: 2400 },
+  //       { label: '娱乐', value: 1500 },
+  //       { label: '其他', value: 800 }
+  //     ]
   // }
   // const chart = new LineChart(
   //   stage,
   //   options,
   // );
-  const options= {
-      radius:100,
-      innerRadius: 70,
-      colors: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de'],
-      data:  [
-        { label: '食品', value: 4200 },
-        { label: '住房', value: 3100 },
-        { label: '交通', value: 2400 },
-        { label: '娱乐', value: 1500 },
-        { label: '其他', value: 800 }
-      ]
-  }
-   new PieChart(stage,options )
+  // const options= {
+  //     radius:100,
+  //     innerRadius: 70,
+  //     colors: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de'],
+  //     data:  [
+  //       { label: '食品', value: 4200 },
+  //       { label: '住房', value: 3100 },
+  //       { label: '交通', value: 2400 },
+  //       { label: '娱乐', value: 1500 },
+  //       { label: '其他', value: 800 }
+  //     ]
+  // }
+  //  new PieChart(stage,options )
   // const data = [
   //   { label: '1月', value: 65 },
   //   { label: '2月', value: 80 },
