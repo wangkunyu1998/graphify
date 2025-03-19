@@ -93,7 +93,6 @@ class Stage {
     }
     this.isRendering = true;
     requestAnimationFrame(() => {
-      console.log(this.children,this.children.length)
       this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
       this.children.sort((a, b) => a.zIndex - b.zIndex).forEach((child) => {
         child.render()

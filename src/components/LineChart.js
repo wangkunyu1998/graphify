@@ -8,7 +8,7 @@ class LineChart {
       margin: 30,
       axisColor: '#000',
       lineColor: 'blue',
-      pointRadius: 4,
+      pointRadius: 0,
       fontSize: 12,
       ...options
     };
@@ -168,7 +168,7 @@ class LineChart {
     this.drawLine();
     const tooltipDom = document.getElementById('graphify-tooltip')
     let tooltip = ``
-    this.options.data.some((d, i) => {
+    const res =this.options.data.some((d, i) => {
       const x = this.options.margin + (i * this.chartWidth / (this.options.data.length - 1));
       const y = this.height - this.options.margin - (d.value * this.chartHeight / this.yMax);
      
@@ -176,7 +176,7 @@ class LineChart {
        
       // 检测鼠标附近的数据点
       if (Math.abs(mouseX - x) < 10 && Math.abs(mouseY - y) < 10) {
-        tooltip = `<div  style=" height:50px; position: absolute; left: ${x + 10}px; top: ${y + 10}px; background-color: rgb(255, 255, 255);  box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; padding: 10px; width: 200px; pointer-events: none;  border-radius: 8px; flex-direction: column; gap: 10px;"><div style="font-size: 16px;">${d.label}</div>
+        tooltip = `<div  style="box-sizing: content-box; height:50px; position: absolute; left: ${x + 10}px; top: ${y + 10}px; background-color: rgb(255, 255, 255);  box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; padding: 10px; width: 200px; pointer-events: none;  border-radius: 8px; flex-direction: column; gap: 10px;"><div style="font-size: 16px;">${d.label}</div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <div style="margin-top:5px;width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background-color: #0052D9;"></div> 
             <div></div>
@@ -191,7 +191,9 @@ class LineChart {
       }
      
     });
-    tooltipDom.innerHTML = tooltip
+    if(res){
+      tooltipDom.innerHTML = tooltip
+    }
   }
 
   // 初始化图表

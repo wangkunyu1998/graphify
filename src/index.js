@@ -14,7 +14,8 @@ if(import.meta.env.DEV){
   const stage = new Stage(root,700,300);
   // const options = {
   //   margin: 60,
-  //   smooth:false,
+  //   lineColor:'red',
+  //   pointRadius:5,
   //     data:  [
   //       { label: '食品', value: 4200 },
   //       { label: '住房', value: 3100 },
@@ -40,23 +41,23 @@ if(import.meta.env.DEV){
   //     ]
   // }
   //  new PieChart(stage,options )
-  // const data = [
-  //   { label: '1月', value: 65 },
-  //   { label: '2月', value: 80 },
-  //   { label: '3月', value: 45 },
-  //   { label: '4月', value: 95 },
-  //   { label: '5月', value: 70 }
-  // ]
-  // const barChart = new BarChart(
-  //   stage,
-  //   {
-  //     barColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD'],
-  //     margin: 60,
-  //     animationDuration: 1500,
-  //     data,
-  //     // barWidth:10
-  //   }
-  // )
+  const data = [
+    { label: '1月', value: 65 },
+    { label: '2月', value: 80 },
+    { label: '3月', value: 45 },
+    { label: '4月', value: 95 },
+    { label: '5月', value: 70 }
+  ]
+  const barChart = new BarChart(
+    stage,
+    {
+      barColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD'],
+      margin: 60,
+      animationDuration: 1500,
+      data,
+      // barWidth:10
+    }
+  )
   // stage.appendChild(chart)
 }
 
@@ -68,4 +69,7 @@ export  {
   animation,
   Group,
   Stage,
+  LineChart,
+  PieChart,
+  BarChart
 }

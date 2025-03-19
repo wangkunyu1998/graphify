@@ -45,7 +45,6 @@ class Rect extends Drag {
     }
   }
   render() {
-    console.log('rect')
     const { x, y, width, height, fillStyle, borderColor, borderWidth, radius } = this;
     const ctx = this.ctx
     ctx.save();

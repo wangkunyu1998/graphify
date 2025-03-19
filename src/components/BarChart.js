@@ -113,13 +113,12 @@ class BarChart {
     this.data.forEach((d, i) => {
       const x = this.options.margin + (i * (barWidth + spacing))  + 20
       const targetHeight = (d.value / this.maxValue) * this.chartHeight
-      
-      this.ctx.fillStyle = this.options.barColor[i % this.options.barColor.length]
       const rect = new Rect(this.stage,{
         x,
         y:this.height - this.options.margin - targetHeight,
         width:barWidth,
         height:targetHeight,
+        fillStyle: this.options.barColor[i % this.options.barColor.length]
       })
       this.stage.appendChild(rect)
     })
@@ -136,16 +135,16 @@ class BarChart {
     const spacing = barWidth * 0.2
     const tooltipDom = document.getElementById('graphify-tooltip')
      let tooltip = ``
-    this.data.some((d, i) => {
+   const res =  this.data.some((d, i) => {
       const xStart = this.options.margin + (i * (barWidth + spacing))
       const xEnd = xStart + barWidth
       
       if(mouseX > xStart && mouseX < xEnd && 
          mouseY < this.height - this.options.margin && 
          mouseY > this.options.margin) {
-        tooltip = `<div  style=" height:50px; position: absolute; left: ${mouseX + 20}px; top: ${mouseY + 20}px; background-color: rgb(255, 255, 255);  box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; padding: 10px; width: 200px; pointer-events: none;  border-radius: 8px; flex-direction: column; gap: 10px;"><div style="font-size: 16px;">${d.label}</div>
+        tooltip = `<div  style="box-sizing: content-box; height:50px; position: absolute; left: ${mouseX + 20}px; top: ${mouseY + 20}px; background-color: rgb(255, 255, 255);  box-shadow: rgba(0, 0, 0, 0.2) 1px 2px 10px; padding: 10px; width: 200px; pointer-events: none;  border-radius: 8px; flex-direction: column; gap: 10px;"><div style="font-size: 16px;">${d.label}</div>
         <div style="display: flex; align-items: center; gap: 8px;">
-          <div style="margin-top:5px;width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background-color: #0052D9;"></div> 
+          <div style="margin-top:5px;width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; background-color: ${ this.options.barColor[i % this.options.barColor.length]};"></div> 
           <div></div>
           <div style="margin-left: auto; ">${d.value}</div>
         </div>
@@ -156,7 +155,10 @@ class BarChart {
        tooltipDom.style.display = 'none'
       return false
     })
-    tooltipDom.innerHTML = tooltip
+    if(res){
+      tooltipDom.innerHTML = tooltip
+    }
+   
   }
 }
 export default BarChart
