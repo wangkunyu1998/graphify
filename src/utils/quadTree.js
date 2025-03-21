@@ -50,24 +50,23 @@ class QuadTree{
     const y = this.boundary.y;
     const w = this.boundary.width / 2;
     const h = this.boundary.height / 2;
-    //第一象限
     const firstQuadrant = {x:x + w, y:y, width:w, height:h}
     const secondQuadrant = {x:x + w, y:y + h, width:w, height:h}
     const thirdQuadrant = {x:x, y:y + h, width:w, height:h}
     const fourthQuadrant = {x:x , y:y, width:w, height:h};
     const ctx = this.ctx;
-    ctx.beginPath();
+    // ctx.beginPath();
 
-    ctx.moveTo( x ,y + h);
+    // ctx.moveTo( x ,y + h);
 
-    ctx.lineTo(x + w * 2, y + h );
-    ctx.moveTo( x + w, y);
+    // ctx.lineTo(x + w * 2, y + h );
+    // ctx.moveTo( x + w, y);
   
-    ctx.lineTo( x + w  , y  + 2 * h);
-    ctx.strokeStyle = 'red';
+    // ctx.lineTo( x + w  , y  + 2 * h);
+    // ctx.strokeStyle = 'red';
 
-    ctx.closePath();
-    ctx.stroke();
+    // ctx.closePath();
+    // ctx.stroke();
     this.children = [
       // 用四叉树实例化每个象限，去判断传入图形是否与当先象限相交
       new QuadTree(firstQuadrant,this.depth + 1,this.ctx), new QuadTree(secondQuadrant,this.depth + 1,this.ctx),new QuadTree(thirdQuadrant,this.depth + 1,this.ctx), new QuadTree(fourthQuadrant,this.depth + 1,this.ctx)
