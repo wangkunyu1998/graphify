@@ -5,17 +5,50 @@
 
 import CanvasEvent from '@/utils/canvasEvent'
 import QuadTree from '@/utils/quadTree'
-
+import download from '@/utils/download'
+const initDownloadOption = {
+  show: true,
+  imgType: 'png',
+  title: "图形",
+  icon: `<svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24"
+      fill="none" 
+      stroke="#000" 
+      stroke-width="2"
+    >
+      <path d="M12 3v12m0 0l-3-3m3 3l3-3"/>
+      <path d="M5 21h14"/>
+    </svg>`
+}
 class Stage {
-  constructor(root,width ,height) {
+  constructor(root, width, height, downloadOption = initDownloadOption) {
     this.container = root
     const canvas = document.createElement("canvas");
-    canvas.width = width || this?.container?.clientWidth   
-    canvas.height = height || this?.container?.clientHeight 
-  
+    this.canvas = canvas
+    canvas.width = width || this?.container?.clientWidth
+    canvas.height = height || this?.container?.clientHeight
     const ctx = canvas.getContext("2d");
+    this.container.style.position = 'relative';
     this.container.appendChild(canvas);
-  
+    if (initDownloadOption.show) {
+      const { right, top } = canvas.getBoundingClientRect();
+      const downloadBtn = document.createElement("div");
+      // downloadBtn.innerText = '下载图片';
+      downloadBtn.innerHTML = initDownloadOption.icon
+      downloadBtn.style.position = 'absolute';
+      downloadBtn.style.top = `${top + window.scrollY}px`
+      downloadBtn.style.left = `${right + window.scrollX - 48}px`
+      downloadBtn.style.cursor = 'pointer';
+      downloadBtn.addEventListener('click', () => {
+        download(this.canvas, downloadOption)
+      })
+      this.container.appendChild(downloadBtn);
+    }
+
+
     this.children = [];
     this.ctx = ctx;
     this.quadTree = new QuadTree({
@@ -25,7 +58,7 @@ class Stage {
       height: ctx.canvas.height
     }, 0, this.ctx)
     // 支持那些事件
-    const eventTypes = ['click','dblclick','mousedown','mouseup','mousemove','mouseenter','mouseleave' ]
+    const eventTypes = ['click', 'dblclick', 'mousedown', 'mouseup', 'mousemove', 'mouseenter', 'mouseleave']
     // const eventTypes = ['click']
     eventTypes.forEach((eventType) => new CanvasEvent(canvas, this, eventType))
     this.isRendering = false; // 是否正在渲染
@@ -37,21 +70,22 @@ class Stage {
     this.render();
     this.draging = false;
     this.pendingChildren = []; // 新增待处理队列
+
   };
   getCtx() {
     return this.ctx
   }
   appendChild(...childs) {
-  
+
     childs.forEach((child) => {
       child.index = this.index;
       this.index = this.index + 1;
       this.children.push(child);
     })
-   
+
     this.render();
     this.isQuadTreeUpdate = true;
-    
+
   }
   getChildren(filterFunc) {
     if (!filterFunc) {
@@ -112,7 +146,7 @@ class Stage {
         this.isQuadTreeUpdate = false
       }
       this.isRendering = false;
-    },0)
+    }, 0)
   }
 }
 

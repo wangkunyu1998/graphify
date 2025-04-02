@@ -47,7 +47,7 @@ if(import.meta.env.DEV){
     { label: '4月', value: 95 },
     { label: '5月', value: 70 }
   ]
-  const barChart = new BarChart(
+  new BarChart(
     stage,
     {
       barColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD'],
@@ -57,7 +57,6 @@ if(import.meta.env.DEV){
       // barWidth:10
     }
   )
-  // stage.appendChild(chart)
 }
 
 export  {
