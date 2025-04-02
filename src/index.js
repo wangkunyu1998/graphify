@@ -8,7 +8,6 @@ import PieChart from '@/components/PieChart'
 import BarChart from '@/components/BarChart'
 import animation from '@/utils/animation'
 import Stage from '@/stage.js';
-
 if(import.meta.env.DEV){
   const root = document.getElementById('app')
   const stage = new Stage(root,700,300);

@@ -8,7 +8,19 @@ const nextFrame = window.requestAnimationFrame ||
     lasttime = curtime + delay
     return setTimeout(callback, delay)
   };
-
+let animQueue = []
+const req = (callback) => {
+  animQueue.push(callback);
+  if (animQueue.length === 1) {
+    nextFrame(function () {
+      const queue = animQueue;
+      animQueue = [];
+      queue.forEach(function (cb) {
+        cb();
+      });
+    });
+  }
+}
 const cancelFrame = window.cancelAnimationFrame ||
   window.webkitCancelAnimationFrame ||
   window.mozCancelAnimationFrame ||
@@ -28,19 +40,21 @@ const tween = {
   bounce: function (t, b, c, d) { if ((t /= d) < (1 / 2.75)) { return c * (7.5625 * t * t) + b; } else if (t < (2 / 2.75)) { return c * (7.5625 * (t -= (1.5 / 2.75)) * t + .75) + b; } else if (t < (2.5 / 2.75)) { return c * (7.5625 * (t -= (2.25 / 2.75)) * t + .9375) + b; } else { return c * (7.5625 * (t -= (2.625 / 2.75)) * t + .984375) + b; } }
 };
 let timer = null
-// 元素、动画时长、动画曲线、动画目标值{attr:'x',value:'500'}
-function animate(element, duration, target,easing = 'linear', ) {
+// 元素、动画时长、动画曲线、动画目标值{attr:'x',value:'500',init}
+function animate(element, duration, target,easing = 'linear' ) {
   const stime = Date.now();
-  cancelFrame(timer);
   ani()
   function ani(){
     const offset = Math.min(duration, Date.now() - stime);
     const s = tween[easing](offset, 0, 1, duration)
     if (offset < duration) {
-      element.setAttr({ [target.attr]: target.value * s })
-      timer = nextFrame(ani)
+      target.forEach(item => {
+        element.setAttr({ [item.attr]:  item.value * s + (item.init || 0) })
+      })
+   
+      req(ani);
     }
   }
-
+  return timer
 }
 export default animate

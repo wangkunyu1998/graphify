@@ -1,6 +1,6 @@
 
 import Rect from './Rect'
-import animation from '@/utils/animation'
+import animate from '@/utils/animation'
 class BarChart {
   constructor(stage, options = {}) {
     this.ctx = stage.getCtx();;
@@ -12,6 +12,7 @@ class BarChart {
       axisColor: '#666',
       barColor: ['#4A90E2', '#7ED321', '#F5A623'], // 支持多种颜色
       animationDuration: 1000,
+      animation:true,
       ...options
     }
     
@@ -108,18 +109,24 @@ class BarChart {
 
   // 绘制柱状图（带动画进度）
   drawBars() {
+    const {animationDuration,animation} = this.options
     let barWidth = this.chartWidth / this.data.length * 0.8
     let spacing = barWidth * 0.2;
     this.data.forEach((d, i) => {
       const x = this.options.margin + (i * (barWidth + spacing))  + 20
       const targetHeight = (d.value / this.maxValue) * this.chartHeight
+      const y = this.height - this.options.margin - targetHeight;
       const rect = new Rect(this.stage,{
         x,
-        y:this.height - this.options.margin - targetHeight,
+        y,
         width:barWidth,
         height:targetHeight,
         fillStyle: this.options.barColor[i % this.options.barColor.length]
       })
+      // 初始Y = y+ height，目标y
+      if(animation){
+        animate(rect,animationDuration,[{attr:'y',value:-targetHeight,init:y + targetHeight},{attr:'height',value:targetHeight}])
+      }
       this.stage.appendChild(rect)
     })
     this.stage.appendChild(this)
