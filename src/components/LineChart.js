@@ -14,8 +14,8 @@ class LineChart {
     };
     // console.log(this.options)
     // 初始化尺寸
-    this.width = this.canvas.width;
-    this.height = this.canvas.height;
+    this.width = this.canvas.width / stage.dpr;
+    this.height = this.canvas.height / stage.dpr;
     this.chartWidth = this.width - 2 * this.options.margin;
     this.chartHeight = this.height - 2 * this.options.margin;
     this.render()

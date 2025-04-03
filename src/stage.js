@@ -30,6 +30,7 @@ class Stage {
     this.canvas = canvas;
     const containerClient = this?.container.getBoundingClientRect();
     const dpr = window.devicePixelRatio
+    this.dpr = dpr
     canvas.width =( width || containerClient.width) * dpr
     canvas.height =( height || containerClient.height) * dpr;
     canvas.style.transform = `scale(${1/dpr},${1/dpr})`;
@@ -37,16 +38,17 @@ class Stage {
     canvas.style.left = `-50%`;
     canvas.style.top = `-50%`;
     const ctx = canvas.getContext("2d");
-    // ctx.scale(dpr, dpr);
+    ctx.scale(dpr, dpr);
     ctx.font = `${'24px'} ${window.getComputedStyle(document.body, null).getPropertyValue('font-family')}`
     this.container.style.position = 'relative';
     this.container.appendChild(canvas);
     if (initDownloadOption.show) {
+      const {width} = this.container.getBoundingClientRect()
       const downloadBtn = document.createElement("div");
       downloadBtn.innerHTML = initDownloadOption.icon
       downloadBtn.style.position = 'absolute';
       downloadBtn.style.top = `${12}px`
-      downloadBtn.style.left = `${canvas.width - 48}px`
+      downloadBtn.style.left = `${width - 48}px`
       downloadBtn.style.cursor = 'pointer';
       downloadBtn.addEventListener('click', () => {
         download(this.canvas, downloadOption)

@@ -17,8 +17,8 @@ class BarChart {
     }
     this.font = `${'16px'} ${window.getComputedStyle(document.body, null).getPropertyValue('font-family')}`
     // 初始化计算
-    this.width =   this.canvas.width
-    this.height =  this.canvas.height
+    this.width =   this.canvas.width /stage.dpr
+    this.height =  this.canvas.height/stage.dpr
     this.chartWidth = this.width - 2*this.options.margin
     this.chartHeight = this.height - 2*this.options.margin
     this.maxValue = Math.max(...options.data.map(d => d.value))

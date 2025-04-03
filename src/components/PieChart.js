@@ -14,7 +14,7 @@ class PieChart{
    
     this.data = options.data;
     // 初始化计算
-    this.center = { x: this.canvas.width/2, y: this.canvas.height/2 }
+    this.center = { x: this.canvas.width / 2 / stage.dpr, y: this.canvas.height / 2 / stage.dpr }
     this.total = this.data.reduce((sum, item) => sum + item.value, 0)
     this.hoverIndex = -1
     this.render()
