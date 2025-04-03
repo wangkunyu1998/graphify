@@ -15,7 +15,7 @@ class BarChart {
       animation:true,
       ...options
     }
-    
+    this.font = `${'16px'} ${window.getComputedStyle(document.body, null).getPropertyValue('font-family')}`
     // 初始化计算
     this.width =   this.canvas.width
     this.height =  this.canvas.height
@@ -81,7 +81,7 @@ class BarChart {
     this.data.forEach((d, i) => {
       this.ctx.fillText(
         d.label,
-        this.options.margin + (i * barWidth) + barWidth/2,
+        this.options.margin /2 + (i * barWidth) + barWidth/2,
         this.height - this.options.margin + 10
       )
     })

@@ -10,7 +10,7 @@ import animation from '@/utils/animation'
 import Stage from '@/stage.js';
 if(import.meta.env.DEV){
   const root = document.getElementById('app')
-  const stage = new Stage(root,700,300);
+  const stage = new Stage(root);
   // const options = {
   //   margin: 60,
   //   lineColor:'red',

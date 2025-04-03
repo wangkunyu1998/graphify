@@ -27,20 +27,26 @@ class Stage {
   constructor(root, width, height, downloadOption = initDownloadOption) {
     this.container = root
     const canvas = document.createElement("canvas");
-    this.canvas = canvas
-    canvas.width = width || this?.container?.clientWidth
-    canvas.height = height || this?.container?.clientHeight
+    this.canvas = canvas;
+    const containerClient = this?.container.getBoundingClientRect();
+    const dpr = window.devicePixelRatio
+    canvas.width =( width || containerClient.width) * dpr
+    canvas.height =( height || containerClient.height) * dpr;
+    canvas.style.transform = `scale(${1/dpr},${1/dpr})`;
+    canvas.style.position = `relative`;
+    canvas.style.left = `-50%`;
+    canvas.style.top = `-50%`;
     const ctx = canvas.getContext("2d");
+    // ctx.scale(dpr, dpr);
+    ctx.font = `${'24px'} ${window.getComputedStyle(document.body, null).getPropertyValue('font-family')}`
     this.container.style.position = 'relative';
     this.container.appendChild(canvas);
     if (initDownloadOption.show) {
-      const { right, top } = canvas.getBoundingClientRect();
       const downloadBtn = document.createElement("div");
-      // downloadBtn.innerText = '下载图片';
       downloadBtn.innerHTML = initDownloadOption.icon
       downloadBtn.style.position = 'absolute';
-      downloadBtn.style.top = `${top + window.scrollY}px`
-      downloadBtn.style.left = `${right + window.scrollX - 48}px`
+      downloadBtn.style.top = `${12}px`
+      downloadBtn.style.left = `${canvas.width - 48}px`
       downloadBtn.style.cursor = 'pointer';
       downloadBtn.addEventListener('click', () => {
         download(this.canvas, downloadOption)
