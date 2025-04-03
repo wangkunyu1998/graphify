@@ -9,13 +9,21 @@ class BarChart {
     this.data = options.data
     this.options = {
       margin: 50,
-      axisColor: '#666',
       barColor: ['#4A90E2', '#7ED321', '#F5A623'], // 支持多种颜色
       animationDuration: 1000,
       animation:true,
+      labelStyle:{
+        fontSize:12,
+        fontFamily:window.getComputedStyle(document.body, null).getPropertyValue('font-family'),
+        color:'#333'
+      },
+      axisStyle:{
+        color:'#666',
+        lineWidth:1
+      },
       ...options
     }
-    this.font = `${'16px'} ${window.getComputedStyle(document.body, null).getPropertyValue('font-family')}`
+    this.font = `${this.options.labelStyle.fontSize}px ${this.options.labelStyle.fontFamily}`
     // 初始化计算
     this.width =   this.canvas.width /stage.dpr
     this.height =  this.canvas.height/stage.dpr
@@ -43,9 +51,9 @@ class BarChart {
   // 绘制XY轴
   drawAxes() {
     this.ctx.save()
-    this.ctx.fillStyle = '#666'
-    this.ctx.strokeStyle = this.options.axisColor
-    this.ctx.lineWidth = 1
+    this.ctx.fillStyle = this.options.labelStyle.color
+    this.ctx.strokeStyle = this.options.axisStyle.color
+    this.ctx.lineWidth = this.options.axisStyle.lineWidth
     
     // Y轴
     this.ctx.beginPath()
@@ -62,6 +70,7 @@ class BarChart {
     // Y轴刻度
     this.ctx.textAlign = 'right'
     this.ctx.textBaseline = 'middle'
+    this.ctx.font = this.font
     const ySteps = 5
     for(let i = 0; i <= ySteps; i++) {
       const y = this.height - this.options.margin - (i * this.chartHeight / ySteps)
@@ -81,7 +90,7 @@ class BarChart {
     this.data.forEach((d, i) => {
       this.ctx.fillText(
         d.label,
-        this.options.margin /2 + (i * barWidth) + barWidth/2,
+        this.options.margin + (i * barWidth) + barWidth/2,
         this.height - this.options.margin + 10
       )
     })

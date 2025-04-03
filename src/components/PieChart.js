@@ -9,9 +9,13 @@ class PieChart{
       colors: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEEAD'],
       hoverOffset: 15,
       labelFont: '14px Arial',
+      labelStyle:{
+        fontSize:12,
+        fontFamily:window.getComputedStyle(document.body, null).getPropertyValue('font-family'),
+        color:'#333'
+      },
       ...options
     };
-   
     this.data = options.data;
     // 初始化计算
     this.center = { x: this.canvas.width / 2 / stage.dpr, y: this.canvas.height / 2 / stage.dpr }
@@ -76,14 +80,13 @@ class PieChart{
   }
 
   drawLabels() {
-    const { radius, innerRadius, labelFont } = this.options
+    const { radius, innerRadius } = this.options
     const labelRadius = innerRadius > 0 ? radius + 35 : radius * 0.6
     
-    this.ctx.fillStyle = '#333'
-    this.ctx.font = labelFont
+    this.ctx.fillStyle = this.options.labelStyle.color
     this.ctx.textAlign = 'center'
     this.ctx.textBaseline = 'middle'
-
+    this.ctx.font = `${this.options.labelStyle.fontSize}px ${this.options.labelStyle.fontFamily}`
     let startAngle = -Math.PI / 2
     this.data.forEach(item => {
       const sliceAngle = (item.value / this.total) * Math.PI * 2

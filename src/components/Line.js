@@ -2,14 +2,14 @@ class Line {
   constructor(stage,config ={}) {
     this.stage = stage;
     this.ctx = stage.getCtx();
-    this.type= 'line'
+    this.type= 'line';
+    this.opcity = config.opcity || 1
     // 基础属性
     this.lineType = config.lineType || 'line'; // 线段类型：line/quadratic/cubic
     this.x1 = config.x1 || 0;
     this.y1 = config.y1 || 0;
     this.x2 = config.x2 || 100;
     this.y2 = config.y2 || 100;
-    
     // 贝塞尔曲线控制点
     this.controlX1 = config.control1?.x;  // 二次/三次曲线控制点1
     this.controlY1 = config.control1?.y;
@@ -54,7 +54,7 @@ class Line {
     // 绘制主路径
     ctx.beginPath();
     ctx.moveTo(this.x1, this.y1);
-    
+    ctx.globalAlpha = this.opcity;
     switch(this.lineType) {
       case 'quadratic':
         ctx.quadraticCurveTo(

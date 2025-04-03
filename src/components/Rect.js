@@ -45,13 +45,13 @@ class Rect extends Drag {
     }
   }
   render() {
-    const { x, y, width, height, fillStyle, borderColor, borderWidth, radius } = this;
+    const { x, y, width, height, fillStyle, borderColor, borderWidth, radius,opcity } = this;
     const ctx = this.ctx
     ctx.save();
     ctx.fillStyle = fillStyle;
     ctx.lineWidth = borderWidth;
     ctx.strokeStyle = borderColor
-  
+    ctx.globalAlpha = opcity;
     if (radius) {
       ctx.lineWidth = borderWidth * 2;
       //

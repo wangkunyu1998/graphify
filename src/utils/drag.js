@@ -14,9 +14,8 @@ class Drag{
   }
   const onMousemove = (e) => {
     if(this.draging){
-      this?.setAttr({ x: e.offsetX - this.dragNodeMoveX, y: e.offsetY - this.dragNodeMoveY });
+      this?.setAttr({ x: (e.offsetX )/this.stage.dpr- this.dragNodeMoveX , y: (e.offsetY )/this.stage.dpr - this.dragNodeMoveY});
     }
-   
   }
   this.stage.container.addEventListener('mousemove', onMousemove)
   this.stage.container.addEventListener('mouseup', onMouseup)

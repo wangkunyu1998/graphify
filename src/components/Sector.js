@@ -75,7 +75,7 @@ class Sector extends  Drag{
     ctx.arc(this.x, this.y, this.radius, this.startAngle, this.endAngle);
     ctx.lineTo(this.x, this.y);
     ctx.closePath();
-    
+    ctx.globalAlpha = this.opcity;
     // 填充
     ctx.fillStyle = this.fillStyle;
     ctx.fill();

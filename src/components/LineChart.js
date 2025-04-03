@@ -6,13 +6,21 @@ class LineChart {
     this.canvas = this.ctx.canvas;
     this.options = {
       margin: 30,
-      axisColor: '#000',
       lineColor: 'blue',
       pointRadius: 0,
       fontSize: 12,
+      labelStyle:{
+        fontSize:12,
+        fontFamily:window.getComputedStyle(document.body, null).getPropertyValue('font-family'),
+        color:'#333'
+      },
+      axisStyle:{
+        color:'#666',
+        lineWidth:1
+      },
       ...options
     };
-    // console.log(this.options)
+    this.font = `${this.options.labelStyle.fontSize }px ${this.options.labelStyle.fontFamily}`
     // 初始化尺寸
     this.width = this.canvas.width / stage.dpr;
     this.height = this.canvas.height / stage.dpr;
@@ -37,8 +45,10 @@ class LineChart {
   drawAxes() {
     const { ctx, options } = this;
     ctx.save();
-    ctx.strokeStyle = options.axisColor;
-    ctx.lineWidth = 1;
+    this.ctx.fillStyle = this.options.labelStyle.color
+    this.ctx.strokeStyle = this.options.axisStyle.color
+    this.ctx.lineWidth = this.options.axisStyle.lineWidth
+    
 
     // Y轴
     ctx.beginPath();
@@ -55,7 +65,7 @@ class LineChart {
     // Y轴刻度
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
-    ctx.font= `${'12px'} ${window.getComputedStyle(document.body, null).getPropertyValue('font-family')}`
+    ctx.font=  this.font
     for (let i = 0; i <= 5; i++) {
       const y = this.height - options.margin - (i * this.chartHeight / 5);
       const value = i * this.yStep;

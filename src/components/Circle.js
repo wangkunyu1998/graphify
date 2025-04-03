@@ -75,7 +75,7 @@ class Circle extends Drag {
     this.listener[type].push(callback)
   }
   render() {
-    const { x, y, radius, startAngle, endAngle, fillStyle, borderColor, borderWidth } = this;
+    const { x, y, radius, startAngle, endAngle, fillStyle, borderColor, borderWidth,opcity } = this;
     const ctx = this.ctx
     ctx.save()
    
@@ -85,6 +85,7 @@ class Circle extends Drag {
     ctx.fillStyle = fillStyle;
     ctx.strokeStyle = borderColor || 'rgba(0,0,0,0)'; // 边框颜色
     ctx.lineWidth = borderWidth; // 边框宽度
+    ctx.globalAlpha = opcity;
     ctx.fill();
     ctx.stroke()
     ctx.closePath();
